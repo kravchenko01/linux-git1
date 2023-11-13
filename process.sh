@@ -95,7 +95,7 @@ END{
 
 cat $1 | awk -F, '{if ($12 != -1){if($18 != -1){print $12 "," $18}}}' > /tmp/my_tmp_clean-overal.txt
 gnuplot << EOF
-  set terminal png size 300,400
+  set terminal png size 600,600
   set output 'cleanliness_vs_overalRatingSource.png'
   set datafile separator ','
   set fit quiet
