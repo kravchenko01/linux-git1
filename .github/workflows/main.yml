@@ -1,0 +1,7 @@
+name: autotrain
+on:
+  push:
+    paths:
+    - '*.py'
+jobs:
+  
