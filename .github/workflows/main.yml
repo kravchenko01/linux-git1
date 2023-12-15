@@ -3,5 +3,52 @@ on:
   push:
     paths:
     - '*.py'
+  status: {}
 jobs:
-  
+  autotrain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        uses: actions/checkout@v4
+      
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: install packages for python
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install numpy matplotlib torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+      - name: train model
+        run: |
+          python3 ./project2/train.py
+          python3 ./project2/infer.py
+
+      - name: message if failure
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: error while train or infer model
+
+      - name: push changes
+        if: ${{ success() }}
+        run: |
+          REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git user.name "${{ github.actor }}"
+          git add .
+          git commit -am "Train new model"
+          git push ${REMOTE}
+
+      - name: message if success
+        if: ${{ success() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: new model trained successfully          
+ 
