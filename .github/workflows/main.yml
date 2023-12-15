@@ -39,7 +39,7 @@ jobs:
         run: |
           REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git user.name "${{ github.actor }}"
+          git config user.name "${{ github.actor }}"
           git add .
           git commit -am "Train new model"
           git push ${REMOTE}
