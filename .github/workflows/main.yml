@@ -16,6 +16,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: message start training
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM-TOKEN }}
+          message: start training model
+
       - name: install packages for python
         run: |
           python3 -m pip install --upgrade pip
