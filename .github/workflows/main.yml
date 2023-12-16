@@ -2,7 +2,7 @@ name: autotrain
 on:
   push:
     paths:
-    - '*.py'
+    - '**.py'
   status: {}
 jobs:
   autotrain:
@@ -20,7 +20,7 @@ jobs:
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM-TOKEN }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
           message: start training model
 
       - name: install packages for python
@@ -28,10 +28,10 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install numpy matplotlib torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
-      - name: train model
-        run: |
-          python3 ./project2/train.py
-          python3 ./project2/infer.py
+#      - name: train model
+#        run: |
+#          python3 ./project2/train.py
+#          python3 ./project2/infer.py
 
       - name: message if failure
         if: ${{ failure() }}
@@ -41,15 +41,15 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: error while train or infer model
 
-      - name: push changes
-        if: ${{ success() }}
-        run: |
-          REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git config user.name "${{ github.actor }}"
-          git add .
-          git commit -am "Train new model"
-          git push ${REMOTE}
+#      - name: push changes
+#        if: ${{ success() }}
+#        run: |
+#          REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+#          git config user.email "${{ github.actor }}@users.noreply.github.com"
+#          git config user.name "${{ github.actor }}"
+#          git add .
+#          git commit -am "Train new model"
+#          git push ${REMOTE}
 
       - name: message if success
         if: ${{ success() }}
