@@ -25,13 +25,14 @@ jobs:
 
       - name: install packages for python
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install numpy matplotlib torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --upgrade pip
+          pip install numpy matplotlib 
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
 #      - name: train model
 #        run: |
-#          python3 ./project2/train.py
-#          python3 ./project2/infer.py
+#          python ./project2/train.py
+#          python ./project2/infer.py
 
       - name: message if failure
         if: ${{ failure() }}
