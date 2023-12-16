@@ -18,7 +18,7 @@ def train_model(model, train_loader):
     learning_rate = 0.001
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-    num_epochs = 1
+    num_epochs = 3
     count = 0
 
     loss_list = []
