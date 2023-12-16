@@ -11,6 +11,7 @@ from model import FashionCNN
 BATCH_SIZE = 100
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+
 def train_model(model, train_loader):
     model.train()
 

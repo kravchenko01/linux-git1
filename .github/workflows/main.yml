@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       
       - name: setup python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
           python-version: '3.11'
 
@@ -49,7 +49,7 @@ jobs:
           REMOTE=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
-          git add .
+          git add -A
           git commit -am "Train new model"
           git push ${REMOTE}
 
