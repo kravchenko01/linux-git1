@@ -58,5 +58,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: new model trained successfully          
+          message: new model trained successfully, see more details: https://github.com/${{ github.repository }}          
  
